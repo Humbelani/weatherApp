@@ -1,5 +1,3 @@
-//
-//  WeatherVC.swift
 //  WeatherApp
 //
 //  Created by Humbelani Mdau on 2017/07/31.
@@ -11,7 +9,7 @@ import CoreLocation
 import Alamofire
 import SwiftyGif
 
-class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+class WeatherViewController: UIViewController, CLLocationManagerDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
 
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -42,8 +40,6 @@ class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDe
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
-        collectionView.delegate = self
-        collectionView.dataSource = self
         currentWeather = CurrentWeather()
     }
     
@@ -70,11 +66,9 @@ class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDe
             } else {
                 Location.sharedInstance.latitude = -26.107567
             }
-            //Location.sharedInstance.latitude = currentLocation.coordinate.latitude
-            //Location.sharedInstance.longitude = currentLocation.coordinate.longitude
             print("LOCATIONNNNNNNNNNNNNN \(currentLocation?.coordinate.latitude, currentLocation?.coordinate.longitude)")
             currentWeather.downloadWeatherDetails {
-                self.downloadForecastData {
+                self.downloadForecast {
                     self.updateMainUI()
                 }
             }
@@ -84,13 +78,13 @@ class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDe
         }
     }
     
-    func downloadForecastData(completed: @escaping DownloadComplete) {
+    func downloadForecast(completed: @escaping DownloadComplete) {
         let forecastURL = URL(string: FORECAST_URL)!
         
         Alamofire.request(forecastURL).responseJSON { response in
             let result = response.result
-            if let dict = result.value as? Dictionary<String, AnyObject> {
-                if let list = dict["list"] as? [Dictionary<String, AnyObject>] {
+            if let dict = result.value as? StringToAnyObjectDictionary {
+                if let list = dict["list"] as? [StringToAnyObjectDictionary] {
                     for obj in list {
                         let forecast = Forecast(weatherDict: obj)
                         self.forecasts.append(forecast)
@@ -123,8 +117,6 @@ class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDe
         sunsetLabel.text = "\(currentWeather.sunset)"
         sunriseLabel.text = "\(currentWeather.sunrise)"
         windSpeedLabel.text = "Wind: \(wind) km/h"
-
- 
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
@@ -143,8 +135,6 @@ class WeatherVC: UIViewController, CLLocationManagerDelegate, UICollectionViewDe
         } else{
             return ForecastCollectionCell()
         }
-        
     }
-    
 }
 

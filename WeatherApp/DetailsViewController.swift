@@ -1,5 +1,3 @@
-//
-//  DetailsVC.swift
 //  WeatherApp
 //
 //  Created by Humbelani Mdau on 2017/10/02.
@@ -8,7 +6,7 @@
 
 import UIKit
 
-class DetailsVC: UIViewController {
+class DetailsViewController: UIViewController {
     
     @IBOutlet weak var cityName: UILabel!
     @IBOutlet weak var weatherDescr: UILabel!
@@ -27,10 +25,10 @@ class DetailsVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        passedValues()
+        populateUI()
     }
 
-    func passedValues() {
+    func populateUI() {
         cityName.text = name
         let tempCelcius = String(temperature.characters.prefix(2))
         let windString = String(format: "%.0f", wind)

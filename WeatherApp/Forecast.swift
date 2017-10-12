@@ -16,10 +16,6 @@ class Forecast {
     private var _lowTemp: String!
     
     var date: String {
-//        if _date == nil {
-//            _date = ""
-//        }
-//        return _date
         return _date ?? ""
     }
     
@@ -35,8 +31,8 @@ class Forecast {
         return _lowTemp ?? ""
     }
     
-    init(weatherDict: Dictionary<String, AnyObject>) {
-        if let temp = weatherDict["temp"] as? Dictionary<String, AnyObject> {
+    init(weatherDict: StringToAnyObjectDictionary) {
+        if let temp = weatherDict["temp"] as? StringToAnyObjectDictionary {
             if let min = temp["min"] as? Double {
                 let kelvinToCelcius = (min - 273.15)
                 self._lowTemp = "\(kelvinToCelcius)"
@@ -48,7 +44,7 @@ class Forecast {
             }
         }
         
-        if let weather = weatherDict["weather"] as? [Dictionary<String, AnyObject>]{
+        if let weather = weatherDict["weather"] as? [StringToAnyObjectDictionary]{
             if let main = weather[0]["main"] as? String {
                 self._weatherType = main
             }
@@ -57,7 +53,6 @@ class Forecast {
         if let date = weatherDict["dt"] as? Double {
             let unixConvertedDate = Date(timeIntervalSince1970: date)
             self._date = unixConvertedDate.dayOfTheWeek()
-            
         }
     }
 }

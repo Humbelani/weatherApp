@@ -77,31 +77,25 @@ class CurrentWeather {
     
     
     func downloadWeatherDetails(completed: @escaping DownloadComplete) {
-        // initialize url to tell alamofire where to download data from
-        
-       // let currentWeatherURL = URL(string: CURRENT_WEATHER_URL)!
-        
+
         Alamofire.request(CURRENT_WEATHER_URL).responseJSON { response in
             let result = response.result
             
-            if let dict = result.value as? Dictionary<String, AnyObject> {
+            if let dict = result.value as? StringToAnyObjectDictionary {
                 if let name = dict["name"] as? String {
                     self._cityName = name.capitalized
-                    print(self._cityName)
                 }
                 
-                if let weather = dict["weather"] as? [Dictionary<String, AnyObject>] {
+                if let weather = dict["weather"] as? [StringToAnyObjectDictionary] {
                     if let main = weather[0]["main"] as? String {
                         self._weatherType = main.capitalized
-                        print(self._weatherType)
                     }
                 }
                 
-                if let main = dict["main"] as? Dictionary<String, AnyObject> {
+                if let main = dict["main"] as? StringToAnyObjectDictionary {
                     if let currentTemperature = main["temp"] as? Double {
                         let kelvinToCelcius = (currentTemperature - 273.15)
                         self._currentTemp = kelvinToCelcius
-                        print(self._currentTemp)
                     }
                     
                     if let minTemp = main["temp_min"] as? Double {
@@ -117,22 +111,21 @@ class CurrentWeather {
                     if let humidity = main["humidity"] as? Double {
                         self._humidity = humidity
                     }
-                    
                 }
                 
-                if let wind = dict["wind"] as? Dictionary<String, AnyObject> {
+                if let wind = dict["wind"] as? StringToAnyObjectDictionary {
                     if let speed = wind["speed"] as? Double {
                         self._windSpeed = speed
                     }
                 }
                 
-                if let clouds = dict["clouds"] as? Dictionary<String, AnyObject> {
+                if let clouds = dict["clouds"] as? StringToAnyObjectDictionary {
                     if let all = clouds["all"] as? Double {
                         self._cloudsCover = all
                     }
                 }
                 
-                if let sys = dict["sys"] as? Dictionary<String, AnyObject> {
+                if let sys = dict["sys"] as? StringToAnyObjectDictionary {
                     
                     let formatter = DateFormatter()
                     formatter.timeStyle = .short
@@ -141,7 +134,6 @@ class CurrentWeather {
                     if let sunset = sys["sunset"] as? Double {
                         let date = Date(timeIntervalSince1970: sunset)
                         self._sunset = formatter.string(from: date)
-                        
                     }
                     
                     if let sunrise = sys["sunrise"] as? Double {
