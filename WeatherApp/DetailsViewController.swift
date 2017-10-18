@@ -15,13 +15,7 @@ class DetailsViewController: UIViewController {
     @IBOutlet weak var windLbl: UILabel!
     @IBOutlet weak var cloudsLbl: UILabel!
     
-    var name: String!
-    var weatherType: String!
-    var weatherImg: UIImage!
-    var temperature: String!
-    var weatherDescription: String!
-    var wind: Double!
-    var clouds: Double!
+    var city: City?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +23,12 @@ class DetailsViewController: UIViewController {
     }
 
     func populateUI() {
-        cityName.text = name
-        let tempCelcius = String(temperature.characters.prefix(2))
-        let windString = String(format: "%.0f", wind)
-        let cloudsString = String(format: "%.0f", clouds)
-        temp.text = "\(tempCelcius)°"
-        weatherIcon.image = weatherImg
-        weatherDescr.text = weatherDescription
+        cityName.text = city?.cityName
+        let windString = String(format: "%.0f", (city?.wind)!)
+        let cloudsString = String(format: "%.0f", (city?.clouds)!)
+        temp.text = (city?.maxTemp)! + "°"
+        weatherIcon.image = UIImage(named:(city?.weatherType)!)
+        weatherDescr.text = city?.weatherDescription
         windLbl.text = "Wind: \(windString) km/h"
         cloudsLbl.text = "Clouds cover: \(cloudsString) %"
     }

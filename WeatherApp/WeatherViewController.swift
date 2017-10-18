@@ -31,7 +31,8 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
-    var currentWeather: CurrentWeather!
+    var currentWeather = CurrentWeather()
+    var location = Location()
     var forecasts = [Forecast]()
     
     override func viewDidLoad() {
@@ -40,7 +41,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
-        currentWeather = CurrentWeather()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -54,20 +54,16 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     }
     
     func locationAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
+        if CLLocationManager.authorizationStatus() == .authorizedAlways {
             currentLocation = locationManager.location
             if let longitude = currentLocation?.coordinate.longitude {
-                Location.sharedInstance.longitude = longitude
-            } else {
-                Location.sharedInstance.longitude = 28.056702
+                Constants.Parameter.longitude = longitude
             }
             if let latitude = currentLocation?.coordinate.latitude {
-                Location.sharedInstance.latitude = latitude
-            } else {
-                Location.sharedInstance.latitude = -26.107567
+                Constants.Parameter.latitude = latitude
             }
             print("LOCATIONNNNNNNNNNNNNN \(currentLocation?.coordinate.latitude, currentLocation?.coordinate.longitude)")
-            currentWeather.downloadWeatherDetails {
+            currentWeather.downloadWeather {
                 self.downloadForecast {
                     self.updateMainUI()
                 }
@@ -79,7 +75,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     }
     
     func downloadForecast(completed: @escaping DownloadComplete) {
-        let forecastURL = URL(string: FORECAST_URL)!
+        let forecastURL = URL(string: Constants.Forecast.url)!
         
         Alamofire.request(forecastURL).responseJSON { response in
             let result = response.result
@@ -104,7 +100,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
         let minTemp = String(format: "%.0f",currentWeather.minTemp)
         let maxTemp = String(format: "%.0f",currentWeather.maxTemp)
         let humidity = String(format: "%.0f",currentWeather.humidity)
-        let wind = String(format: "%.0f",currentWeather.wind)
+        let wind = String(format: "%.0f",currentWeather.windSpeed)
         let cloudsCover = String(format: "%.0f",currentWeather.cloudsCover)
         currentTempLabel.text = "\(currentTemp)°"
         currentWeatherTypeLabel.text = currentWeather.weatherType

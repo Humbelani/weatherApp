@@ -12,6 +12,7 @@ class CitiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var citiesTableView: UITableView!
     
     var cities = [City]()
+    var city: City!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,15 +21,15 @@ class CitiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
 
     func downloadCities(completed: @escaping DownloadComplete) {
 
-        let forecastURL = URL(string: CITIES_URL)!
+        let forecastURL = URL(string: Constants.Cities.url)!
         
         Alamofire.request(forecastURL).responseJSON { response in
             let result = response.result
             if let dict = result.value as? StringToAnyObjectDictionary {
                 if let list = dict["list"] as? [StringToAnyObjectDictionary], list.count > 0 {
                     for item in list {
-                        let city = City(cityDict: item)
-                        self.cities.append(city)
+                        self.city = City(cityDict: item)
+                        self.cities.append(self.city)
                     }
                     self.cities.remove(at:0)
                     self.citiesTableView.reloadData()
@@ -51,7 +52,7 @@ class CitiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "cityCell", for: indexPath) as? CityCell else {
             fatalError("Could not dequeue cell with identifier: cityCell")
         }
-        let city = cities[indexPath.row]
+        city = cities[indexPath.row]
         cell.configureCityCell(city: city)
         return cell
     }
@@ -61,18 +62,13 @@ class CitiesViewController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let indexPath = tableView.indexPathForSelectedRow!
-        let cell = tableView.cellForRow(at: indexPath) as! CityCell
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let detailsViewController = storyboard.instantiateViewController(withIdentifier: "DetailsViewController") as! DetailsViewController
-        detailsViewController.name = cell.cityName.text
-        detailsViewController.weatherImg = cell.weatherIconImgView.image
-        detailsViewController.weatherType = cell.weatherType.text
-        detailsViewController.temperature = cell.maxTemp.text
-        detailsViewController.weatherDescription = cell.descr
-        detailsViewController.wind = cell.wind
-        detailsViewController.clouds = cell.clouds
+        city = cities[indexPath.row]
         tableView.deselectRow(at: indexPath, animated: true)
-        self.present(detailsViewController, animated: true , completion: nil)
+        performSegue(withIdentifier: "detailsViewController", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let detailsViewController = segue.destination as! DetailsViewController
+        detailsViewController.city = city
     }
 }

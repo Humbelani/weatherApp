@@ -20,8 +20,8 @@
 		CF259F871F823C4200F87374 /* CityCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF259F861F823C4200F87374 /* CityCell.swift */; };
 		CF259F891F82415600F87374 /* City.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF259F881F82415600F87374 /* City.swift */; };
 		CF259F8B1F82804D00F87374 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF259F8A1F82804D00F87374 /* DetailsViewController.swift */; };
+		CF4C31041F964FDC002FA8E9 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF4C31031F964FDC002FA8E9 /* Date+Extensions.swift */; };
 		CF50B3F21F7CE85400ECD37A /* CitiesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF50B3F11F7CE85400ECD37A /* CitiesViewController.swift */; };
-		CFC0D1091F7D5FBD00529A62 /* weatherGIF.gif in Resources */ = {isa = PBXBuildFile; fileRef = CFC0D1081F7D5FBD00529A62 /* weatherGIF.gif */; };
 		CFC0D10B1F7D68D700529A62 /* ForecastCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CFC0D10A1F7D68D700529A62 /* ForecastCollectionCell.swift */; };
 /* End PBXBuildFile section */
 
@@ -43,8 +43,8 @@
 		CF259F861F823C4200F87374 /* CityCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CityCell.swift; sourceTree = "<group>"; };
 		CF259F881F82415600F87374 /* City.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = City.swift; sourceTree = "<group>"; };
 		CF259F8A1F82804D00F87374 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		CF4C31031F964FDC002FA8E9 /* Date+Extensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
 		CF50B3F11F7CE85400ECD37A /* CitiesViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CitiesViewController.swift; sourceTree = "<group>"; };
-		CFC0D1081F7D5FBD00529A62 /* weatherGIF.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = weatherGIF.gif; sourceTree = "<group>"; };
 		CFC0D10A1F7D68D700529A62 /* ForecastCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForecastCollectionCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -89,7 +89,6 @@
 		CF112D001F2F5DC900814E63 /* WeatherApp */ = {
 			isa = PBXGroup;
 			children = (
-				CFC0D1071F7D5E3400529A62 /* gif */,
 				CF112D011F2F5DC900814E63 /* AppDelegate.swift */,
 				CF112D031F2F5DC900814E63 /* WeatherViewController.swift */,
 				CF112D051F2F5DC900814E63 /* Main.storyboard */,
@@ -105,16 +104,9 @@
 				CF259F861F823C4200F87374 /* CityCell.swift */,
 				CF259F881F82415600F87374 /* City.swift */,
 				CF259F8A1F82804D00F87374 /* DetailsViewController.swift */,
+				CF4C31031F964FDC002FA8E9 /* Date+Extensions.swift */,
 			);
 			path = WeatherApp;
-			sourceTree = "<group>";
-		};
-		CFC0D1071F7D5E3400529A62 /* gif */ = {
-			isa = PBXGroup;
-			children = (
-				CFC0D1081F7D5FBD00529A62 /* weatherGIF.gif */,
-			);
-			path = gif;
 			sourceTree = "<group>";
 		};
 		EEF9B5C32001BE4DA6B35BB0 /* Pods */ = {
@@ -189,7 +181,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CFC0D1091F7D5FBD00529A62 /* weatherGIF.gif in Resources */,
 				CF112D0C1F2F5DC900814E63 /* LaunchScreen.storyboard in Resources */,
 				CF112D091F2F5DC900814E63 /* Assets.xcassets in Resources */,
 				CF112D071F2F5DC900814E63 /* Main.storyboard in Resources */,
@@ -264,6 +255,7 @@
 				CF112D021F2F5DC900814E63 /* AppDelegate.swift in Sources */,
 				CF259F871F823C4200F87374 /* CityCell.swift in Sources */,
 				CFC0D10B1F7D68D700529A62 /* ForecastCollectionCell.swift in Sources */,
+				CF4C31041F964FDC002FA8E9 /* Date+Extensions.swift in Sources */,
 				CF50B3F21F7CE85400ECD37A /* CitiesViewController.swift in Sources */,
 				CF1BE29B1F31E5F000E6E7D9 /* CurrentWeather.swift in Sources */,
 				CF259F891F82415600F87374 /* City.swift in Sources */,

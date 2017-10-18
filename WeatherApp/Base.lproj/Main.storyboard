@@ -410,7 +410,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rSH-ab-Fvc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5000.8000000000002" y="-667.91604197901052"/>
+            <point key="canvasLocation" x="3665" y="620"/>
         </scene>
         <!--OTHER LOCATIONS-->
         <scene sceneID="U5i-Kr-sgK">
@@ -517,6 +517,7 @@
                     <tabBarItem key="tabBarItem" title="OTHER LOCATIONS" id="5jN-sA-YlK"/>
                     <connections>
                         <outlet property="citiesTableView" destination="H5J-tJ-eSB" id="Fx5-ea-mpW"/>
+                        <segue destination="tdi-9v-TpR" kind="show" identifier="detailsViewController" id="QBL-mv-20i"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QgS-Jx-pdv" userLabel="First Responder" sceneMemberID="firstResponder"/>
