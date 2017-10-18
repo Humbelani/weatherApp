@@ -32,7 +32,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     var currentLocation: CLLocation?
     
     var currentWeather = CurrentWeather()
-    var location = Location()
     var forecasts = [Forecast]()
     
     override func viewDidLoad() {
@@ -54,7 +53,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     }
     
     func locationAuthStatus() {
-        if CLLocationManager.authorizationStatus() == .authorizedAlways {
+        if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             currentLocation = locationManager.location
             if let longitude = currentLocation?.coordinate.longitude {
                 Constants.Parameter.longitude = longitude
