@@ -27,7 +27,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var backgroundImg: UIImageView!
     
-    
     let locationManager = CLLocationManager()
     var currentLocation: CLLocation?
     
@@ -38,21 +37,19 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
         super.viewDidLoad()
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
         locationManager.startMonitoringSignificantLocationChanges()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        locationAuthStatus()
+        currentLocationStatus()
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        scrollView.contentSize = CGSize(width: view.frame.size.width,height: (collectionView.frame.origin.y + collectionView.frame.size.height))
     }
     
-    func locationAuthStatus() {
+    func currentLocationStatus() {
         if CLLocationManager.authorizationStatus() == .authorizedWhenInUse {
             currentLocation = locationManager.location
             if let longitude = currentLocation?.coordinate.longitude {
@@ -69,7 +66,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, UIColl
             }
         } else {
             locationManager.requestWhenInUseAuthorization()
-            locationAuthStatus()
+            currentLocationStatus()
         }
     }
     
